@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Todo List Management API",
   "main": "src/server.js",
-  "type": "commonjs",
   "scripts": {
     "start": "node src/server.js",
     "dev": "nodemon src/server.js"
