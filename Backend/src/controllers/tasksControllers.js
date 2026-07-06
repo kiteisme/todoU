@@ -26,20 +26,22 @@ const createTask = async (req, res) => {
 
 const updateTask = async (req, res) => {
   try {
-    const { title,status,completedAt } = req.body;
-    const updateTask = await Task.findByIdAndUpdate(
-        req.params.id,
-        {
-            title,
-            status,
-            completedAt
-        },
-        {new: true}
+    const { title, completed } = req.body;
+
+    const updatedTask = await Task.findByIdAndUpdate(
+      req.params.id,
+      {
+        ...(title !== undefined && { title }),
+        ...(completed !== undefined && { completed }),
+      },
+      { new: true }
     );
-    if (!updateTask) {
+
+    if (!updatedTask) {
       return res.status(404).json({ message: "Khong tim thay task" });
-    }   
-    res.status(200).json(updateTask);
+    }
+
+    res.status(200).json(updatedTask);
   } catch (error) {
     console.error("Loi khi cap nhat task:", error);
     res.status(500).json({ message: "Loi he thong" });
